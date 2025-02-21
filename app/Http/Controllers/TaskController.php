@@ -10,11 +10,8 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        // Ensure the user is authenticated
-        $user = Auth::user();
-
-        // Fetch tasks related to the logged-in customer
-        $tasks = Task::where('customer_id', $user->id)->get();
+        // Retrieve tasks for the authenticated customer
+        $tasks = Task::where('customer_id', Auth::id())->get();
 
         // Pass tasks to the view
         return view('dashboard', compact('tasks'));
