@@ -4,9 +4,11 @@
 
 @section('content')
 <div class="card">
-    <div class="card-header">
+    <div class="card-header d-flex justify-content-between align-items-center">
         <h3 class="card-title">{{ auth()->user()->name }} Task List</h3>
+        <a href="{{ route('tasks.create') }}" class="btn btn-success">+ Add Task</a>
     </div>
+
     <div class="card-body">
         @if($tasks->isEmpty())
             <p>No tasks found.</p>
@@ -22,6 +24,7 @@
                         <th>Task Description</th>
                         <th>Materials</th>
                         <th>Completion (%)</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -41,6 +44,15 @@
                             @endif
                         </td>
                         <td>{{ $task->completion_percentage }}%</td>
+                        <td>
+                            <a href="{{ route('tasks.edit', $task->id) }}" class="btn btn-warning btn-sm w-100">View Detail</a>
+
+                            <form action="{{ route('tasks.destroy', $task->id) }}" method="POST" style="display:inline;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger btn-sm w-100" onclick="return confirm('Are you sure?')">Delete</button>
+                            </form>
+                        </td>
                     </tr>
                     @endforeach
                 </tbody>
