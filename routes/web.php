@@ -9,7 +9,6 @@ Route::get('/', function () {
     return redirect()->route('dashboard');
 });
 
-
 Route::get('/terms', function () {
     return view('terms');
 })->name('terms');
