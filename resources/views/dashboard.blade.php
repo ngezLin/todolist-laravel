@@ -5,9 +5,10 @@
 @section('content')
 <div class="card">
     <div class="card-header d-flex justify-content-between align-items-center">
-        <h3 class="card-title">{{ auth()->user()->name }} Task List</h3>
+        <h3 class="card-title">{{ auth()->user()->name }} Dashboard</h3>
         <a href="{{ route('tasks.create') }}" class="btn btn-success">+ Add Task</a>
     </div>
+
 
     <div class="card-body">
         @if($tasks->isEmpty())
@@ -29,7 +30,7 @@
                 </thead>
                 <tbody>
                     @foreach($tasks as $index => $task)
-                    <tr>
+                    <tr class="{{ $task->status === 'completed' ? 'table-success' : '' }}">
                         <td>{{ $index + 1 }}</td>
                         <td>{{ $task->title }}</td>
                         <td>{{ $task->priority }}</td>
@@ -45,17 +46,28 @@
                         </td>
                         <td>{{ $task->completion_percentage }}%</td>
                         <td>
-                            <a href="{{ route('tasks.edit', $task->id) }}" class="btn btn-warning btn-sm w-100">View Detail</a>
+                            <a href="{{ route('tasks.edit', $task->id) }}" class="btn btn-warning btn-xs px-2 py-1">Detail</a>
 
                             <form action="{{ route('tasks.destroy', $task->id) }}" method="POST" style="display:inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-danger btn-sm w-100" onclick="return confirm('Are you sure?')">Delete</button>
+                                <button type="submit" class="btn btn-danger btn-xs px-2 py-1" onclick="return confirm('Are you sure?')">Delete</button>
                             </form>
+
+                            @if($task->status !== 'completed')
+                                <form action="{{ route('tasks.done', $task->id) }}" method="POST" style="display:inline;">
+                                    @csrf
+                                    @method('PATCH')
+                                    <button type="submit" class="btn btn-success btn-xs px-2 py-1" onclick="return confirm('Mark this task as done?')">Done</button>
+                                </form>
+                            @else
+                                <span class="badge badge-success">Completed</span>
+                            @endif
                         </td>
                     </tr>
                     @endforeach
                 </tbody>
+
             </table>
         @endif
     </div>

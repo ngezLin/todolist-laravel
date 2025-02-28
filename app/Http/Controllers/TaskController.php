@@ -8,17 +8,11 @@ use Illuminate\Support\Facades\Auth;
 
 class TaskController extends Controller
 {
-    /**
-     * Show the form for creating a new task.
-     */
     public function create()
     {
         return view('tasks.create');
     }
 
-    /**
-     * Store a newly created task.
-     */
     public function store(Request $request)
     {
         $request->validate([
@@ -81,5 +75,19 @@ class TaskController extends Controller
         $task->delete();
 
         return redirect()->route('dashboard')->with('success', 'Task deleted successfully!');
+    }
+
+    public function markAsDone($id)
+    {
+        $task = Task::findOrFail($id);
+        $task->update(['status' => 'completed']);
+
+        return redirect()->route('tasks.index');
+    }
+
+    public function index()
+    {
+        $tasks = Task::where('status', '!=', 'completed')->get();
+        return view('tasks.index', compact('tasks'));
     }
 }

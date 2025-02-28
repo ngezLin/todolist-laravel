@@ -43,6 +43,16 @@
                 <label for="description" class="form-label">Task Description</label>
                 <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
             </div>
+{{--
+            <div class="mb-3">
+                <label for="assigned_to" class="form-label">Assigned To</label>
+                <select class="form-control" id="assigned_to" name="assigned_to" required>
+                    <option value="">Select a user</option>
+                    @foreach($customers as $customer)
+                        <option value="{{ $customer->id }}">{{ $customer->name }}</option>
+                    @endforeach
+                </select>
+            </div> --}}
 
             <div class="mb-3">
                 <label for="materials" class="form-label">Materials (URL)</label>

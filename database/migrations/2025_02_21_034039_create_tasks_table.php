@@ -16,6 +16,7 @@ return new class extends Migration {
             $table->text('description');
             $table->string('materials')->nullable(); // URL or PDF
             $table->integer('completion_percentage')->default(0);
+            $table->enum('status', ['pending', 'completed'])->default('pending');
             $table->timestamps();
         });
     }
