@@ -29,7 +29,7 @@
                         <a class="nav-link {{ request()->routeIs('tasks.index') ? 'active' : '' }}" href="{{ route('tasks.index') }}">Home</a>
                     </li> --}}
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('alltask') ? 'active' : '' }}" href="{{ route('dashboard') }}">All task</a>
+                        <a class="nav-link {{ request()->routeIs('viewtask') ? 'active' : '' }}" href="{{ route('dashboard') }}">All task</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/about">About</a>

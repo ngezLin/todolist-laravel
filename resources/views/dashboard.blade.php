@@ -35,7 +35,33 @@
                         <td>{{ $task->title }}</td>
                         <td>{{ $task->priority }}</td>
                         <td>{{ $task->customer->name ?? 'N/A' }}</td>
-                        <td>{{ $task->due_date }}</td>
+                        <td>
+                            {{ $task->due_date }}
+                            @php
+                                $dueDate = \Carbon\Carbon::parse($task->due_date);
+                                $now = now();
+                                $diff = $dueDate->diff($now);
+
+                                $isOverdue = $now->greaterThan($dueDate);
+                            @endphp
+
+                            @if($isOverdue && $task->status !== 'completed')
+                                <span class="text-danger">
+                                    (Overdue {{ $diff->days }} days,
+                                    {{ $diff->h }} hours,
+                                    {{ $diff->i }} minutes,
+                                    {{ $diff->s }} seconds)
+                                </span>
+                            @elseif(!$isOverdue)
+                                <span class="text-success">
+                                    (Due in {{ $diff->days }} days,
+                                    {{ $diff->h }} hours,
+                                    {{ $diff->i }} minutes,
+                                    {{ $diff->s }} seconds)
+                                </span>
+                            @endif
+                        </td>
+
                         <td>{{ $task->description }}</td>
                         <td>
                             @if($task->materials)

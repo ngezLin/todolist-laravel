@@ -21,7 +21,7 @@ class LoginController extends Controller
         ]);
 
         if (Auth::attempt($credentials)) {
-            return redirect()->intended('/alltask');
+            return redirect()->intended('/viewtask');
         }
 
         return back()->withErrors(['email' => 'Invalid login credentials.'])->withInput();

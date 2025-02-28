@@ -3,5 +3,5 @@
 \it('redirects from / to dashboard', function () {
     $response = $this->get('/');
 
-    $response->assertRedirect('/alltask');
+    $response->assertRedirect('/viewtask');
 });

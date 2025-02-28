@@ -31,7 +31,7 @@ Route::middleware('guest')->group(function () {
 // Authenticated routes
 Route::middleware('auth')->group(function () {
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
-    Route::get('/alltask', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/viewtask', [DashboardController::class, 'index'])->name('dashboard');
 
     Route::get('/tasks', [TaskController::class, 'index'])->name('tasks.index');
     Route::get('/tasks/create', [TaskController::class, 'create'])->name('tasks.create');
